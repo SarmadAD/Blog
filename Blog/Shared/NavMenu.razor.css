@@ -1,0 +1,17 @@
+.navbar {
+    font-size: larger;
+}
+
+.navUlNormal {
+    display: flex;
+    list-style-type: none;
+    width: 35%;
+    justify-content: center;
+}
+
+.navUlLogin {
+    display: flex;
+    list-style-type: none;
+    width: 35%;
+    justify-content: flex-end;
+}

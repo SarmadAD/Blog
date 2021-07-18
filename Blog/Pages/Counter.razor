@@ -1,0 +1,17 @@
+﻿@page "/counter"
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<RadzenButton Click="@ButtonClicked" Text="Hi"></RadzenButton>
+
+@code {
+    private int currentCount = 0;
+
+    void ButtonClicked()
+    {
+        currentCount++;
+
+    }
+}

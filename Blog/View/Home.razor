@@ -1,0 +1,35 @@
+﻿@page "/"
+@inherits HomeBase
+<h1 class="homeHeader">Beiträge</h1>
+
+@if (ViewModel.IsLoading)
+{
+    <p>Lade...</p>
+}
+else
+{
+    <div class="posts">
+        @foreach (var post in ViewModel.PostList)
+        {
+            <RadzenCard Style="width:25%; margin-top: 5em; height:700px;">
+                <div class="post">
+                    <div class="name">
+                        <h3>@post.Name</h3>
+                    </div>
+                    <div class="description">
+                        <p>@post.Description</p>
+                    </div>
+                    <div class="bottomPost">
+                        <div class="categories">
+                            Kategorie: @ViewModel.Categorys(post.PostCategories)
+                        </div>
+                        <div class="tags">
+                            Tags: @ViewModel.Tags(post.PostTags)
+                        </div>
+                    </div>
+                </div>
+            </RadzenCard>
+        }
+    </div>
+}
+

@@ -1,0 +1,32 @@
+﻿.homeHeader {
+    text-align: center;
+    font-weight: lighter;
+}
+
+.posts {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.post {
+    display: flex;
+    height: 700px;
+    flex-wrap: wrap;
+}
+
+.name {
+    text-align: center;
+    width: 100%;
+}
+
+.description {
+    width: 100%;
+    align-self: center;
+}
+
+.bottomPost {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
