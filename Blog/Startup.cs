@@ -33,6 +33,7 @@ namespace Blog
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<HomeViewModel>();
+            services.AddScoped<PostViewModel>();
 
             var cs = Configuration.GetConnectionString("BloggingDatabase");
             services.AddDbContextFactory<BlogContext>(opt => opt.UseSqlServer(cs));

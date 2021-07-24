@@ -1,5 +1,6 @@
 ﻿using Blog.Classes.API;
 using Blog.Classes.Models;
+using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,18 @@ namespace Blog.ViewModel
     public class HomeViewModel
     {
         private IDbContextFactory<BlogContext> dbContextFactory;
+        private NavigationManager navigationManager;
+        private PostViewModel postViewModel;
 
         public List<Post> PostList { get; set; }
         public bool IsLoading { get; set; }
+        public bool ShowPost { get; set; }
 
-        public HomeViewModel(IDbContextFactory<BlogContext> dbContextFactory)
+        public HomeViewModel(IDbContextFactory<BlogContext> dbContextFactory, NavigationManager navigationManager, PostViewModel postViewModel)
         {
             this.dbContextFactory = dbContextFactory;
+            this.navigationManager = navigationManager;
+            this.postViewModel = postViewModel;
         }
 
         public async Task LoadPostList()
@@ -26,12 +32,13 @@ namespace Blog.ViewModel
             try
             {
                 IsLoading = true;
-                using (var ctx = dbContextFactory.CreateDbContext())
-                {
-                    PostList = ctx.Posts.ToList();
-                }
-                //PostList = await apiHandler.APICall<List<Post>>(null, HttpMethod.Get, "Posts");
-
+                using var ctx = dbContextFactory.CreateDbContext();
+                PostList = ctx.Posts
+                    .Include(x => x.PostCategories)
+                    .ThenInclude(x => x.Category)
+                    .Include(x=>x.PostTags)
+                    .ThenInclude(x=>x.Tag)
+                    .ToList();
             }
             catch (Exception ex)
             {
@@ -51,7 +58,7 @@ namespace Blog.ViewModel
             if (categories.Any())
             {
                 foreach (var category in categories)
-                    categoryString += category.Category.Name;
+                    categoryString += category.Category.Name + ", ";
             }
             else categoryString = "Keine Kategorien gefunden";
 
@@ -64,11 +71,17 @@ namespace Blog.ViewModel
             if (tags.Any())
             {
                 foreach (var tag in tags)
-                    tagsString += tag.Tag.Name;
+                    tagsString += tag.Tag.Name + ", ";
             }
             else tagsString = "Keine Tags gefunden";
 
             return tagsString;
+        }
+
+        public void OpenSelectedPost(Post post)
+        {
+            postViewModel.SelectedPost = post;
+            navigationManager.NavigateTo("/post");
         }
     }
 }

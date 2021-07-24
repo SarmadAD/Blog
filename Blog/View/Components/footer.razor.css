@@ -1,0 +1,17 @@
+﻿.footer {
+    margin-top: 3em;
+}
+
+.footerNavbar {
+}
+
+.footerUl {
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+}
+
+.companyName {
+    width: 100%;
+    text-align: center;
+}

@@ -83,7 +83,7 @@ namespace Blog.Classes.Models
                 entity.ToTable("PostCategory");
 
                 entity.HasOne(d => d.Category)
-                    .WithMany(p => p.PostCategories)
+                    .WithMany(p => p.PostCategorys)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PostCategory_Category");

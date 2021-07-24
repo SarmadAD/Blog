@@ -15,6 +15,11 @@
     flex-wrap: wrap;
 }
 
+    .post:hover {
+        transform: scale(0.9);
+        background-color: rgb(245,245,245);
+    }
+
 .name {
     text-align: center;
     width: 100%;

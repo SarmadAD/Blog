@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inherits HomeBase
+
 <h1 class="homeHeader">Beiträge</h1>
 
 @if (ViewModel.IsLoading)
@@ -11,7 +12,7 @@ else
     <div class="posts">
         @foreach (var post in ViewModel.PostList)
         {
-            <RadzenCard Style="width:25%; margin-top: 5em; height:700px;">
+            <RadzenCard Style="width:25%; margin-top: 5em; height:700px;" @onclick="(()=>ViewModel.OpenSelectedPost(post))">
                 <div class="post">
                     <div class="name">
                         <h3>@post.Name</h3>
@@ -32,4 +33,6 @@ else
         }
     </div>
 }
+
+<Footer />
 
