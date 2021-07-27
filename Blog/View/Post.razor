@@ -2,10 +2,23 @@
 
 @inherits PostBase
 
-<h3>@ViewModel.SelectedPost.Name</h3>
-
-<p>@ViewModel.SelectedPost.Text</p>
+<div class="post">
+    <div class="postCaption">
+        <p>@ViewModel.SelectedPost.Name</p>
+    </div>
+    <div class="authorReadTimeContent">
+        <div class="authorReadTime">
+            <div class="author">
+                @ViewModel.LoadAuthor()
+            </div>
+            <div class="readTime">
+                Lese-Zeit: @ViewModel.SelectedPost.Readtime Minuten
+            </div>
+        </div>
+        <div class="content">
+            <p>@ViewModel.SelectedPost.Text</p>
+        </div>
+    </div>  
+</div>
 
 <Footer />
-
-@*Footer ist eingebaut (kann ein bissichen schöner sein). Nun mit dem Post-Inhalt anfangen, wie Author, Lese-Zeit usw. einbauen*@

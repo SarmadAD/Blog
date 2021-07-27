@@ -38,6 +38,8 @@ namespace Blog.ViewModel
                     .ThenInclude(x => x.Category)
                     .Include(x=>x.PostTags)
                     .ThenInclude(x=>x.Tag)
+                    .Include(x => x.PostUsers)
+                    .ThenInclude(x => x.User)
                     .ToList();
             }
             catch (Exception ex)
