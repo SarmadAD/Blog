@@ -1,9 +1,26 @@
 ﻿@page "/contact"
+@inherits ContactBase
 
-<h3>Contact</h3>
-
+<div class="mainContact">
+    <div class="mainContainer">
+        <div class="mainHeader">
+            <p>Kontakt</p>
+        </div>
+        <div class="tbFirstName">
+            <RadzenTextBox Placeholder="Vorname" @bind-Value="@ViewModel.ContractUser.Firstname" />
+        </div>
+        <div class="tbLastName">
+            <RadzenTextBox Placeholder="Nachname" @bind-Value="@ViewModel.ContractUser.Lastname" />
+        </div>
+        <div class="tbEmail">
+            <RadzenTextBox Placeholder="E-Mail" @bind-Value="@ViewModel.ContractUser.Email" />
+        </div>
+        <div class="tbMessage">
+            <RadzenTextArea Placeholder="Nachricht" @bind-Value="ViewModel.Message" />
+        </div>
+        <div class="btSend">
+            <RadzenButton Click="ViewModel.SendMessage" Text="Absenden" />
+        </div>
+    </div>
+</div>
 <Footer />
-
-@code {
-
-}

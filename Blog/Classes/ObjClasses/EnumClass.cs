@@ -7,6 +7,6 @@ namespace Blog.Classes.ObjClasses
 {
     public class EnumClass 
     {
-        public enum UserType { NotDefined = 0, Reader = 1, Author = 2}
+        public enum UserType { NotDefined = 0, Reader = 1, Author = 2, Admin = 3}
     }
 }

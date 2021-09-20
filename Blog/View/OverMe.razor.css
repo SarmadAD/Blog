@@ -1,0 +1,32 @@
+﻿.overMeHeader {
+    text-align: left;
+    font-weight: lighter;
+}
+
+.image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.aboutMeImage {
+    width: 43%;
+    border-radius: 140px;
+    border: solid #88afd9;
+}
+
+.text {
+    width: 50%;
+}
+
+.content {
+    display: flex;
+}
+
+.aboutMeName {
+    font-weight: bold;
+}
+
+.aboutMeWork {
+    color:#a1c0e1;
+}

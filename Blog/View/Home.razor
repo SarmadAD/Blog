@@ -12,7 +12,12 @@ else
     <div class="posts">
         @foreach (var post in ViewModel.PostList)
         {
-            <RadzenCard Style="width:25%; margin-top: 5em; height:700px;" @onclick="(()=>ViewModel.OpenSelectedPost(post))">
+            <RadzenCard Style="width: 25%;
+                         margin-top: 5em;
+                         height: 700px;
+                         flex: 0 0 auto;
+                         margin-right: 1em;
+                         cursor: pointer; " @onclick="(()=>ViewModel.OpenSelectedPost(post))">
                 <div class="post">
                     <div class="name">
                         <h3>@post.Name</h3>
@@ -24,8 +29,23 @@ else
                         <div class="categories">
                             Kategorie: @ViewModel.Categorys(post.PostCategories)
                         </div>
-                        <div class="tags">
-                            Tags: @ViewModel.Tags(post.PostTags)
+                        <div class="tags" style="display: flex;">
+                            <div class="tagCaption">
+                                Tags:
+                            </div>
+                            <div class="tag">
+                                @if (post.PostTags.Any())
+                                {
+                                    @foreach (var post in post.PostTags)
+                                    {
+                                        <p class="singleTag">@post.Tag.Name</p>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>Keine Tags gefunden...</p>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
