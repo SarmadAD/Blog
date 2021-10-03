@@ -35,6 +35,7 @@ namespace Blog
             services.AddScoped<HomeViewModel>();
             services.AddScoped<PostViewModel>();
             services.AddScoped<ContactViewModel>();
+            services.AddScoped<RegisterViewModel>();
 
             var cs = Configuration.GetConnectionString("BloggingDatabase");
             services.AddDbContextFactory<BlogContext>(opt => opt.UseSqlServer(cs));

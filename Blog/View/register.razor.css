@@ -1,0 +1,24 @@
+﻿.registerView {
+    display: flex;
+    justify-content: center;
+}
+.registerBox {
+    border: solid 2px #87aed9;
+    padding: 3em;
+}
+
+.registerTextBoxs > div{
+    margin-bottom:1em;
+}
+
+.registerHeader{
+    text-align:center;
+}
+
+.icon {
+    text-align: center;
+}
+.registerButton {
+    text-align: center;
+    margin: 2em 0em 1em 0em;
+}

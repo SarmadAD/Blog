@@ -1,7 +1,90 @@
 ﻿@page "/register"
 
-<h3>Register</h3>
+@inherits RegisterBase
 
-@code {
+<div class=registerView>
+    <RadzenTemplateForm TItem="User" Data=@ViewModel.NewUser Submit=@ViewModel.Submit>
+        <div class=registerBox>
+            <div class=icon>
+                <Icon Height=50 Width=50 />
+            </div>
+            <div class=registerHeader>
+                <h3>Registrieren</h3>
+            </div>
+            <div class=registerTextBoxs>
+                <div class=login>
+                    <div class=logintb>
+                        <RadzenTextBox Placeholder="Benutzername" @bind-Value=@ViewModel.NewUser.Login Name="Login" />
+                    </div>
+                    <div class=loginval>
+                        <RadzenRequiredValidator Component="Login"
+                                                 Text="Loginnamen eingeben"
+                                                 Style="position: absolute" />
+                    </div>
+                </div>
+                <div class=email>
+                    <div class=emailtb>
+                        <RadzenTextBox Placeholder="E-Mail" @bind-Value=@ViewModel.NewUser.Email Name="Email" />
+                    </div>
+                    <div class=emailval>
+                        <RadzenRequiredValidator Component="Email"
+                                                 Text="E-Mail eingeben"
+                                                 Style="position: absolute" />
+                    </div>
+                </div>
+                <div class=firstname>
+                    <div class=firstnametb>
+                        <RadzenTextBox Placeholder="Vorname" @bind-Value=@ViewModel.NewUser.Firstname Name="firstname" />
+                    </div>
+                    <div class=firstnameval>
+                        <RadzenRequiredValidator Component="firstname"
+                                                 Text="Vorname eingeben"
+                                                 Style="position: absolute" />
+                    </div>
+                </div>
+                <div class=lastname>
+                    <div class=lastnametb>
+                        <RadzenTextBox Placeholder="Nachname" @bind-Value=@ViewModel.NewUser.Lastname Name="lastname" />
+                    </div>
+                    <div class=lastnameval>
+                        <RadzenRequiredValidator Component="lastname"
+                                                 Text="Nachname eingeben"
+                                                 Style="position: absolute" />
+                    </div>
+                </div>
+                <div class=password>
+                    <div class=passwordtb>
+                        <RadzenPassword Placeholder="Passwort" @bind-Value=@ViewModel.NewUser.Password Name="password" />
+                    </div>
+                    <div class=passwordval>
+                        <RadzenRequiredValidator Component="password"
+                                                 Text="Passwort eingeben"
+                                                 Style="position: absolute" />
+                    </div>
+                </div>
+                <div class=passwordagain>
+                    <div class=passwordtb>
+                        <RadzenPassword Placeholder="Passwort wiederholen" @bind-Value=@ViewModel.RepeatPassword Name="RepeatPassword" />
+                    </div>
+                    <div class=passwordagainval>
+                        <RadzenRequiredValidator Component="RepeatPassword"
+                                                 Text="Passwort eingeben"
+                                                 Style="position: absolute" />
+                    </div>
+                    <div class=passwordcheck>
+                        <RadzenCompareValidator Visible=@(!string.IsNullOrEmpty(ViewModel.RepeatPassword))
+                                                Value=@ViewModel.NewUser.Password
+                                                Component="RepeatPassword"
+                                                Text="Das Passwort stimmt nicht überein"
+                                                Style="position: absolute" />
+                    </div>
+                </div>
+                <div class=registerButton>
+                    <RadzenButton Text="Registrieren" ButtonType="ButtonType.Submit" />
+                </div>
+            </div>
+        </div>
+    </RadzenTemplateForm>
+</div>
 
-}
+
