@@ -1,7 +1,43 @@
 ﻿@page "/login"
+@inherits LoginBase
 
-<h3>Login</h3>
+<div class=loginView>
+    <RadzenTemplateForm TItem="User" Data=@ViewModel.LoginUser Submit=@ViewModel.Submit>
+        <div class=loginBox>
+            <div class=icon>
+                <Icon Height=50 Width=50 />
+            </div>
+            <div class=loginHeader>
+                <h3>Login</h3>
+            </div>
+            <div class=loginTextBoxs>
+                <div class=login>
+                    <div class=logintb>
+                        <RadzenTextBox Placeholder="Benutzername" @bind-Value=@ViewModel.LoginUser.Login Name="Login" />
+                    </div>
+                    <div class=loginval>
+                        <RadzenRequiredValidator Component="Login"
+                                                 Text="Loginnamen eingeben"
+                                                 Style="position: absolute" />
+                    </div>
+                </div>
+                <div class=password>
+                    <div class=passwordtb>
+                        <RadzenPassword Placeholder="Passwort" @bind-Value=@ViewModel.LoginUser.Password Name="password" />
+                    </div>
+                    <div class=passwordval>
+                        <RadzenRequiredValidator Component="password"
+                                                 Text="Passwort eingeben"
+                                                 Style="position: absolute" />
+                    </div>
+                </div>
+                <div class=loginButton>
+                    <RadzenButton Text="Anmelden" ButtonType="ButtonType.Submit" />
+                </div>
+            </div>
+        </div>
+    </RadzenTemplateForm>
+</div>
 
-@code {
 
-}
+

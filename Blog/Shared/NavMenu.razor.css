@@ -1,6 +1,7 @@
 .navbar {
     font-size: larger;
     box-shadow: inset 3px 14px 15px 0px #84acd8, inset 15px -17px 16px 6px #ffffff;
+    border-bottom: #88989b1f solid 1px;
 }
 
 .navUlNormal {

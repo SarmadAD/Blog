@@ -1,0 +1,26 @@
+﻿.loginView {
+    display: flex;
+    justify-content: center;
+}
+
+.loginBox {
+    border: solid 2px #87aed9;
+    padding: 3em;
+}
+
+.loginTextBoxs > div {
+    margin-bottom: 1em;
+}
+
+.loginHeader {
+    text-align: center;
+}
+
+.icon {
+    text-align: center;
+}
+
+.loginButton {
+    text-align: center;
+    margin: 2em 0em 1em 0em;
+}
