@@ -1,4 +1,4 @@
-﻿using Blog.Classes.Models;
+﻿using Blog.Models;
 
 namespace Blog.ViewModel
 {
@@ -8,7 +8,7 @@ namespace Blog.ViewModel
         
         public void Submit()
         {
-
+            //Benuterverwaltung: Datenbank ist fertig Login einbauen, Usern schon mal REchte zuteilen und Gruppen etc. Viel Spaß
         }
     }
 }

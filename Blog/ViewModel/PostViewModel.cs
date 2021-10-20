@@ -1,4 +1,4 @@
-﻿using Blog.Classes.Models;
+﻿using Blog.Models;
 using Blog.Classes.ObjClasses;
 using System;
 using System.Collections.Generic;

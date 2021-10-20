@@ -17,7 +17,7 @@ using Radzen;
 using Radzen.Blazor;
 using Blog.View.Components;
 using Blog.View.Components.SVG;
-using Blog.Classes.Models;
+using Blog.Models;
 using Blog.ViewModel;
 
 namespace Blog.View

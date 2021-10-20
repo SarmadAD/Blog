@@ -1,5 +1,5 @@
 ﻿using Blog.Classes.API;
-using Blog.Classes.Models;
+using Blog.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 using System;

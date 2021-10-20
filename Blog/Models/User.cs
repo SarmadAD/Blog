@@ -3,13 +3,14 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Blog.Classes.Models
+namespace Blog.Models
 {
     public partial class User
     {
         public User()
         {
             PostUsers = new HashSet<PostUser>();
+            UserGroups = new HashSet<UserGroup>();
         }
 
         public int Id { get; set; }
@@ -25,5 +26,6 @@ namespace Blog.Classes.Models
         public DateTime? LastEdit { get; set; }
 
         public virtual ICollection<PostUser> PostUsers { get; set; }
+        public virtual ICollection<UserGroup> UserGroups { get; set; }
     }
 }

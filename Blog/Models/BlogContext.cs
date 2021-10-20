@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Blog.Classes.Models
+namespace Blog.Models
 {
     public partial class BlogContext : DbContext
     {
@@ -17,26 +17,70 @@ namespace Blog.Classes.Models
         {
         }
 
+        public virtual DbSet<AccessRight> AccessRights { get; set; }
+        public virtual DbSet<AccessRightGroup> AccessRightGroups { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<PostCategory> PostCategories { get; set; }
         public virtual DbSet<PostTag> PostTags { get; set; }
         public virtual DbSet<PostUser> PostUsers { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserGroup> UserGroups { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=Blog;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Data Source=SARMADSPC\\SQLEXPRESS;Initial Catalog=Blog;Integrated Security=True");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
+
+            modelBuilder.Entity<AccessRight>(entity =>
+            {
+                entity.ToTable("AccessRight");
+
+                entity.Property(e => e.Created).HasColumnType("date");
+
+                entity.Property(e => e.Creater)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Description).HasMaxLength(255);
+
+                entity.Property(e => e.LastEdit).HasColumnType("date");
+
+                entity.Property(e => e.LastEditor)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Name).HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<AccessRightGroup>(entity =>
+            {
+                entity.HasKey(e => new { e.AccessRightId, e.GroupId });
+
+                entity.ToTable("AccessRight_Group");
+
+                entity.HasOne(d => d.AccessRight)
+                    .WithMany(p => p.AccessRightGroups)
+                    .HasForeignKey(d => d.AccessRightId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AcessRight_User_Group");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.AccessRightGroups)
+                    .HasForeignKey(d => d.GroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Group_AccessRight_Group");
+            });
 
             modelBuilder.Entity<Category>(entity =>
             {
@@ -47,6 +91,27 @@ namespace Blog.Classes.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(150);
+            });
+
+            modelBuilder.Entity<Group>(entity =>
+            {
+                entity.ToTable("Group");
+
+                entity.Property(e => e.Created).HasColumnType("date");
+
+                entity.Property(e => e.Creater)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Description).HasMaxLength(255);
+
+                entity.Property(e => e.LastEdit).HasColumnType("date");
+
+                entity.Property(e => e.LastEditor)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Name).HasMaxLength(255);
             });
 
             modelBuilder.Entity<Post>(entity =>
@@ -78,12 +143,13 @@ namespace Blog.Classes.Models
 
             modelBuilder.Entity<PostCategory>(entity =>
             {
-                entity.HasKey(e => new { e.PostId, e.CategoryId });
+                entity.HasKey(e => new { e.PostId, e.CategoryId })
+                    .HasName("PK_PostCategory");
 
-                entity.ToTable("PostCategory");
+                entity.ToTable("Post_Category");
 
                 entity.HasOne(d => d.Category)
-                    .WithMany(p => p.PostCategorys)
+                    .WithMany(p => p.PostCategories)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PostCategory_Category");
@@ -97,9 +163,10 @@ namespace Blog.Classes.Models
 
             modelBuilder.Entity<PostTag>(entity =>
             {
-                entity.HasKey(e => new { e.PostId, e.TagId });
+                entity.HasKey(e => new { e.PostId, e.TagId })
+                    .HasName("PK_PostTag");
 
-                entity.ToTable("PostTag");
+                entity.ToTable("Post_Tag");
 
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.PostTags)
@@ -116,9 +183,10 @@ namespace Blog.Classes.Models
 
             modelBuilder.Entity<PostUser>(entity =>
             {
-                entity.HasKey(e => new { e.PostId, e.UserId });
+                entity.HasKey(e => new { e.PostId, e.UserId })
+                    .HasName("PK_PostUser");
 
-                entity.ToTable("PostUser");
+                entity.ToTable("Post_User");
 
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.PostUsers)
@@ -179,6 +247,25 @@ namespace Blog.Classes.Models
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<UserGroup>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.GroupId });
+
+                entity.ToTable("User_Group");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.UserGroups)
+                    .HasForeignKey(d => d.GroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Group_User_Group");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserGroups)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_User_User_Group");
             });
 
             OnModelCreatingPartial(modelBuilder);

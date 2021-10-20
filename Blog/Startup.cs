@@ -1,5 +1,5 @@
 using Blog.Classes.API;
-using Blog.Classes.Models;
+using Blog.Classes;
 using Blog.ViewModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Blog.Models;
 
 namespace Blog
 {

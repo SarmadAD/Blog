@@ -1,4 +1,4 @@
-﻿using Blog.Classes.Models;
+﻿using Blog.Models;
 using Blog.ViewModel;
 using Microsoft.AspNetCore.Components;
 using System;

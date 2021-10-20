@@ -1,0 +1,7 @@
+﻿Database Info:
+
+Um Context etc zu erstellen in PaketManager-Konsole das eingeben:
+Scaffold-DbContext "Data Source=SARMADSPC\SQLEXPRESS;Initial Catalog=Blog;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+Um Models Ordner dann zu updaten: 
+Scaffold-DbContext "Data Source=SARMADSPC\SQLEXPRESS;Initial Catalog=Blog;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
