@@ -21,3 +21,9 @@
 .navlink {
     color: darkgreen;
 }
+
+.logedin{
+    display:flex;
+    width:15%;
+    justify-content:space-between;
+}

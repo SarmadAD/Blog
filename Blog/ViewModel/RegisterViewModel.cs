@@ -47,7 +47,6 @@ namespace Blog.ViewModel
             }
             finally
             {
-
                 IsLoading = false;
             }
         }

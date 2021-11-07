@@ -1,8 +1,7 @@
-﻿
-<div class="navbar">
+﻿<div class="navbar">
     <ul class="navUlNormal">
-        <li style="margin: 0em 10em 0em 0em;" >
-            <NavLink class="nav-link"  href="" Match="NavLinkMatch.Prefix">
+        <li style="margin: 0em 10em 0em 0em;">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.Prefix">
                 <span class="oi oi-home" aria-hidden="true"></span>
             </NavLink>
         </li>
@@ -17,16 +16,44 @@
             </NavLink>
         </li>
     </ul>
-    <ul class="navUlLogin">
-        <li>
-            <NavLink class="nav-link" href="login" Match="NavLinkMatch.Prefix">
-                <span class="oi oi-plus" aria-hidden="true"></span> Login
-            </NavLink>
-        </li>
-        <li>
-            <NavLink class="nav-link" href="register" Match="NavLinkMatch.Prefix">
-                <span class="oi oi-musical-note" aria-hidden="true"></span> Registrieren
-            </NavLink>
-        </li>
-    </ul>
+    <AuthorizeView>
+        <Authorized>
+            <div class="logedin">
+                <div class="name">
+                    Hallo, @context.User.Identity.Name!
+                </div>
+                <div class="logoutbt">
+                    <RadzenButton Click="BeginLogout" Text="Logout" />
+                </div>
+            </div>
+        </Authorized>
+        <NotAuthorized>
+            <ul class="navUlLogin">
+                <li>
+                    <NavLink class="nav-link" href="login" Match="NavLinkMatch.Prefix">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Login
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink class="nav-link" href="register" Match="NavLinkMatch.Prefix">
+                        <span class="oi oi-musical-note" aria-hidden="true"></span> Registrieren
+                    </NavLink>
+                </li>
+            </ul>
+        </NotAuthorized>
+    </AuthorizeView>
 </div>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    [Inject] public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+    [Inject] public NavigationManager NavigationManager { get; set; }
+
+    private string _authMessage;
+    private void BeginLogout()
+    {
+        ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsLoggedOut();
+        NavigationManager.NavigateTo("/");
+    }
+}

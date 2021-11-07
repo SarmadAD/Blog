@@ -25,5 +25,11 @@ namespace Blog.View
     public partial class LoginBase: ComponentBase
     {
         [Inject] public LoginViewModel ViewModel { get; set; }
+
+        protected override void OnInitialized()
+        {
+            ViewModel.Message = string.Empty;
+            base.OnInitialized();
+        }
     }
 }

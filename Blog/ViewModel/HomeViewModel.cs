@@ -85,5 +85,10 @@ namespace Blog.ViewModel
             postViewModel.SelectedPost = post;
             navigationManager.NavigateTo("/post");
         }
+
+        public void EditMode()
+        {
+
+        }
     }
 }

@@ -12,8 +12,12 @@ else
     <div class="posts">
         @foreach (var post in ViewModel.PostList)
         {
+            <div class="tools">
+                <div class="editPost">
+                    <RadzenButton Click="ViewModel.EditMode"> <Pencil Width="24" Height="24" /> </RadzenButton>
+                </div>
+            </div>
             <RadzenCard Style="width: 25%;
-                         margin-top: 5em;
                          height: 700px;
                          flex: 0 0 auto;
                          margin-right: 1em;
