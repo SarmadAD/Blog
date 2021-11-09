@@ -1,11 +1,11 @@
 ﻿@page "/postEdit"
 
-
-<div class="header">
-    <h3>Bearbeiten</h3>
+<div class="postEdit">
+    <div class="header">
+        <h2>@ViewModel.SelectedPost.Name - Bearbeiten</h2>
+    </div>
+    <div class="editor">
+        <RadzenHtmlEditor @bind-Value=@ViewModel.SelectedPost.Text UploadUrl="upload/image" />
+    </div>
 </div>
-<div class="editor">
-    <RadzenHtmlEditor @bind-Value=@ViewModel.SelectedPost.Text style="height: 500px; margin-bottom: 1rem;" UploadUrl="upload/image" />
-</div>
-
 

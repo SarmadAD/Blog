@@ -1,0 +1,9 @@
+﻿.postEdit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.editor{
+    width:50%
+}
