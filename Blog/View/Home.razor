@@ -14,7 +14,7 @@ else
         {
             <div class="tools">
                 <div class="editPost">
-                    <RadzenButton Click="ViewModel.EditMode"> <Pencil Width="24" Height="24" /> </RadzenButton>
+                    <RadzenButton Click="(()=>ViewModel.EditMode(post))"> <Pencil Width="24" Height="24" /> </RadzenButton>
                 </div>
             </div>
             <RadzenCard Style="width: 25%;

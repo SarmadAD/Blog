@@ -53,3 +53,7 @@ a, .btn-link {
     display: flex;
     flex-direction: column;
 }
+
+.rz-button.btn-primary, .btn-primary.rz-paginator-element {
+    background-color: #5076a0 !important;
+}

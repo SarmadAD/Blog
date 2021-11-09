@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Blog.Models;
 using Microsoft.AspNetCore.Components.Authorization;
 using Blog.Classes.Auth;
+using Radzen;
 
 namespace Blog
 {
@@ -40,6 +41,8 @@ namespace Blog
             services.AddScoped<ContactViewModel>();
             services.AddScoped<RegisterViewModel>();
             services.AddScoped<LoginViewModel>();
+            services.AddScoped<PostEditViewModel>();
+            services.AddScoped<DialogService>();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
             var cs = Configuration.GetConnectionString("BloggingDatabase");

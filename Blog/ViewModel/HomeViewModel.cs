@@ -15,16 +15,22 @@ namespace Blog.ViewModel
         private IDbContextFactory<BlogContext> dbContextFactory;
         private NavigationManager navigationManager;
         private PostViewModel postViewModel;
+        private PostEditViewModel postEditViewModel;
 
         public List<Post> PostList { get; set; }
         public bool IsLoading { get; set; }
         public bool ShowPost { get; set; }
 
-        public HomeViewModel(IDbContextFactory<BlogContext> dbContextFactory, NavigationManager navigationManager, PostViewModel postViewModel)
+        public HomeViewModel(
+            IDbContextFactory<BlogContext> dbContextFactory, 
+            NavigationManager navigationManager,
+            PostViewModel postViewModel,
+            PostEditViewModel postEditViewModel)
         {
             this.dbContextFactory = dbContextFactory;
             this.navigationManager = navigationManager;
             this.postViewModel = postViewModel;
+            this.postEditViewModel = postEditViewModel;
         }
 
         public async Task LoadPostList()
@@ -86,9 +92,10 @@ namespace Blog.ViewModel
             navigationManager.NavigateTo("/post");
         }
 
-        public void EditMode()
+        public void EditMode(Post post)
         {
-
+            postEditViewModel.SelectedPost = post;
+            navigationManager.NavigateTo("/postEdit");
         }
     }
 }
