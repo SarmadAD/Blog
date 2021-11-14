@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Blog.ViewModel
 {
-    public class PostViewModel
+    public class PostViewModel : BaseViewModel
     {
         public Post SelectedPost { get; set; }
 

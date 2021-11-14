@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blog.ViewModel
 {
-    public class ContactViewModel
+    public class ContactViewModel : BaseViewModel
     {
         public User ContractUser { get; set; } = new User();
         public string Message { get; set; }

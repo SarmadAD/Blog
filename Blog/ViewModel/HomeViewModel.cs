@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Blog.ViewModel
 {
-    public class HomeViewModel
+    public class HomeViewModel : BaseViewModel
     {
         private IDbContextFactory<BlogContext> dbContextFactory;
         private NavigationManager navigationManager;
@@ -18,7 +18,6 @@ namespace Blog.ViewModel
         private PostEditViewModel postEditViewModel;
 
         public List<Post> PostList { get; set; }
-        public bool IsLoading { get; set; }
         public bool ShowPost { get; set; }
 
         public HomeViewModel(
@@ -55,7 +54,6 @@ namespace Blog.ViewModel
             }
             finally
             {
-
                 IsLoading = false;
             }
         }
@@ -96,6 +94,8 @@ namespace Blog.ViewModel
         {
             postEditViewModel.SelectedPost = post;
             navigationManager.NavigateTo("/postEdit");
+            //Speichern hinzufügen beim Editmode
+            //Bug fixen wenn refresh dann wird alles gelöscht. Irgendwie zwischenspeichern
         }
     }
 }

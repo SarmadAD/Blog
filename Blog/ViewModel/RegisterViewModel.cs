@@ -9,11 +9,10 @@ using static Blog.Classes.ObjClasses.EnumClass;
 
 namespace Blog.ViewModel
 {
-    public class RegisterViewModel
+    public class RegisterViewModel : BaseViewModel
     {
         public User NewUser { get; set; } = new User();
         public string RepeatPassword { get; set; } = string.Empty;
-        public bool IsLoading { get; set; }
 
         private IDbContextFactory<BlogContext> dbContextFactory;
         private NavigationManager navigationManager;

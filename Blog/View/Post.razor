@@ -3,20 +3,27 @@
 @inherits PostBase
 
 <div class="post">
-    <div class="postCaption">
-        <p>@ViewModel.SelectedPost.Name</p>
-    </div>
-    <div class="authorReadTimeContent">
-        <div class="authorReadTime">
-            <div class="author">
-                @ViewModel.LoadAuthor()
+    @if (@ViewModel.SelectedPost != null)
+    {
+        <div class="postCaption">
+            <p>@ViewModel.SelectedPost.Name</p>
+        </div>
+        <div class="authorReadTimeContent">
+            <div class="authorReadTime">
+                <div class="author">
+                    @ViewModel.LoadAuthor()
+                </div>
+                <div class="readTime">
+                    Lese-Zeit: @ViewModel.SelectedPost.Readtime Minuten
+                </div>
             </div>
-            <div class="readTime">
-                Lese-Zeit: @ViewModel.SelectedPost.Readtime Minuten
+            <div class="content">
+                <p>@ViewModel.SelectedPost.Text</p>
             </div>
         </div>
-        <div class="content">
-            <p>@ViewModel.SelectedPost.Text</p>
-        </div>
-    </div>  
+    }
+    else
+    {
+        <p>Konnte Beitrag nicht laden...</p>
+    }
 </div>

@@ -8,13 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Blog.ViewModel
 {
-    public class LoginViewModel
+    public class LoginViewModel : BaseViewModel
     {
         public User LoginUser {  get; set; } = new User();
         public AuthenticationStateProvider authenticationStateProvider;
         private NavigationManager navigationManager;
         private IDbContextFactory<BlogContext> dbContextFactory;
-        public bool IsLoading { get; set; }
         public string Message { get; set; } = string.Empty;
 
         public LoginViewModel(

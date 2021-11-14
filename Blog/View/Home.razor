@@ -5,18 +5,22 @@
 
 @if (ViewModel.IsLoading)
 {
-    <p>Lade...</p>
+    <IsLoading Text="Lade Beiträge..." />
 }
 else
 {
     <div class="posts">
         @foreach (var post in ViewModel.PostList)
         {
-            <div class="tools">
-                <div class="editPost">
-                    <RadzenButton Click="(()=>ViewModel.EditMode(post))"> <Pencil Width="24" Height="24" /> </RadzenButton>
-                </div>
-            </div>
+            <AuthorizeView Roles=@Resources.Author>
+                <Authorized>
+                    <div class="tools">
+                        <div class="editPost">
+                            <RadzenButton Click="(()=>ViewModel.EditMode(post))"> <Pencil Width="24" Height="24" /> </RadzenButton>
+                        </div>
+                    </div>
+                </Authorized>
+            </AuthorizeView>
             <RadzenCard Style="width: 25%;
                          height: 700px;
                          flex: 0 0 auto;
