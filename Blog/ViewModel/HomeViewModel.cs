@@ -1,4 +1,5 @@
-﻿using Blog.Classes.API;
+﻿using Blazored.LocalStorage;
+using Blog.Classes.API;
 using Blog.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace Blog.ViewModel
         private NavigationManager navigationManager;
         private PostViewModel postViewModel;
         private PostEditViewModel postEditViewModel;
+        private ILocalStorageService localStorage;
 
         public List<Post> PostList { get; set; }
         public bool ShowPost { get; set; }
@@ -24,12 +26,14 @@ namespace Blog.ViewModel
             IDbContextFactory<BlogContext> dbContextFactory, 
             NavigationManager navigationManager,
             PostViewModel postViewModel,
-            PostEditViewModel postEditViewModel)
+            PostEditViewModel postEditViewModel,
+            ILocalStorageService localStorage)
         {
             this.dbContextFactory = dbContextFactory;
             this.navigationManager = navigationManager;
             this.postViewModel = postViewModel;
             this.postEditViewModel = postEditViewModel;
+            this.localStorage = localStorage;
         }
 
         public async Task LoadPostList()
@@ -87,15 +91,21 @@ namespace Blog.ViewModel
         public void OpenSelectedPost(Post post)
         {
             postViewModel.SelectedPost = post;
+            DeleteLocalStorage();
+            SetSelectedPostInLocalStorage(post);
             navigationManager.NavigateTo("/post");
         }
 
         public void EditMode(Post post)
         {
             postEditViewModel.SelectedPost = post;
+            DeleteLocalStorage();
+            SetSelectedPostInLocalStorage(post);
             navigationManager.NavigateTo("/postEdit");
-            //Speichern hinzufügen beim Editmode
-            //Bug fixen wenn refresh dann wird alles gelöscht. Irgendwie zwischenspeichern
         }
+
+        private async void SetSelectedPostInLocalStorage(Post post) => await localStorage.SetItemAsync(post.Id.ToString(), post.Name);
+
+        private async void DeleteLocalStorage() => await localStorage.ClearAsync();
     }
 }

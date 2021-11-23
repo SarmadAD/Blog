@@ -2,24 +2,31 @@
 @attribute [Authorize(Roles = "Author")]
 
 <div class="postEdit">
-    <div class="header">
-        <h2>@ViewModel.SelectedPost.Name - Bearbeiten</h2>
-    </div>
-    <div class="editor">
-        <RadzenHtmlEditor @bind-Value=@ViewModel.SelectedPost.Text UploadUrl="upload/image">
-            <RadzenHtmlEditorUndo />
-            <RadzenHtmlEditorRedo />
-            <RadzenHtmlEditorSeparator />
-            <RadzenHtmlEditorBold />
-            <RadzenHtmlEditorItalic />
-            <RadzenHtmlEditorUnderline />
-            <RadzenHtmlEditorStrikeThrough />
-            <RadzenHtmlEditorSeparator />
-            <RadzenHtmlEditorColor />
-            <RadzenHtmlEditorBackground />
-            <RadzenHtmlEditorRemoveFormat />
-            <RadzenButton Text="Speichern" Click="ViewModel.Save" />
-        </RadzenHtmlEditor>
-    </div>
+    @if (@ViewModel.SelectedPost != null)
+    {
+        <div class="header">
+            <h2>@ViewModel.SelectedPost.Name - Bearbeiten</h2>
+        </div>
+        <div class="editor">
+            <RadzenHtmlEditor @bind-Value=@ViewModel.SelectedPost.Text UploadUrl="upload/image">
+                <RadzenHtmlEditorUndo />
+                <RadzenHtmlEditorRedo />
+                <RadzenHtmlEditorSeparator />
+                <RadzenHtmlEditorBold />
+                <RadzenHtmlEditorItalic />
+                <RadzenHtmlEditorUnderline />
+                <RadzenHtmlEditorStrikeThrough />
+                <RadzenHtmlEditorSeparator />
+                <RadzenHtmlEditorColor />
+                <RadzenHtmlEditorBackground />
+                <RadzenHtmlEditorRemoveFormat />
+                <RadzenButton Text="Speichern" Click="ViewModel.Save" />
+            </RadzenHtmlEditor>
+        </div>
+    }
+    else
+    {
+        <p>Konnte Beitrag nicht laden...</p>
+    }
 </div>
 

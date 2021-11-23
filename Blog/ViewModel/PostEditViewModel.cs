@@ -10,7 +10,7 @@ namespace Blog.ViewModel
     {
         private IDbContextFactory<BlogContext> dbContextFactory;
         private NavigationManager navigationManager;
-        public Post SelectedPost { get; set; }  = new Post();
+        public Post SelectedPost { get; set; }
 
         public PostEditViewModel(
             IDbContextFactory<BlogContext> dbContextFactory,

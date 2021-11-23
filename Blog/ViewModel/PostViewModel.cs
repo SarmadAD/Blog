@@ -4,11 +4,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blazored.LocalStorage;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.ViewModel
 {
     public class PostViewModel : BaseViewModel
     {
+        private ILocalStorageService localStorage;
+        private IDbContextFactory<BlogContext> dbContextFactory;
+        public PostViewModel(
+            ILocalStorageService localStorage,
+            IDbContextFactory<BlogContext> dbContextFactory)
+        {
+            this.localStorage = localStorage;
+            this.dbContextFactory = dbContextFactory;
+        }
+
         public Post SelectedPost { get; set; }
 
         public string LoadAuthor()
@@ -37,6 +49,34 @@ namespace Blog.ViewModel
             }
             else authorString = "Kein Author gefunden.";
             return authorString;
+        }
+
+        public async void LoadSelectedPost()
+        {
+            try
+            {
+                IsLoading = true;
+                using var ctx = dbContextFactory.CreateDbContext();
+                var posts = ctx.Posts.ToList();
+
+                foreach (var post in posts)
+                {
+                    var postname = await localStorage.GetItemAsync<string>(post.Id.ToString());
+                    if (postname == post.Name)
+                    {
+                        SelectedPost = post;
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
     }
 }

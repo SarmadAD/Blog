@@ -10,5 +10,12 @@ namespace Blog.View
     public class PostBase : ComponentBase
     {
         [Inject] public PostViewModel ViewModel { get; set; }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (ViewModel.SelectedPost == null)
+                ViewModel.LoadSelectedPost();
+            StateHasChanged();
+        }
     }
 }

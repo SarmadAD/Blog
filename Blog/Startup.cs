@@ -18,6 +18,7 @@ using Blog.Models;
 using Microsoft.AspNetCore.Components.Authorization;
 using Blog.Classes.Auth;
 using Radzen;
+using Blazored.LocalStorage;
 
 namespace Blog
 {
@@ -36,6 +37,7 @@ namespace Blog
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddBlazoredLocalStorage();
             services.AddScoped<HomeViewModel>();
             services.AddScoped<PostViewModel>();
             services.AddScoped<ContactViewModel>();
