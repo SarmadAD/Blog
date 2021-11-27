@@ -98,10 +98,14 @@ namespace Blog.ViewModel
 
         public void EditMode(Post post)
         {
+            postEditViewModel.EditMode = false;
             postEditViewModel.SelectedPost = post;
+            if (post.Id > 0)
+                postEditViewModel.EditMode = true;
             DeleteLocalStorage();
             SetSelectedPostInLocalStorage(post);
             navigationManager.NavigateTo("/postEdit");
+            //Die Logik für neue Beiträge weiter programmieren 
         }
 
         private async void SetSelectedPostInLocalStorage(Post post) => await localStorage.SetItemAsync(post.Id.ToString(), post.Name);

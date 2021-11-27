@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Blog.Classes.Auth;
 using Blog.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ namespace Blog.ViewModel
         private IDbContextFactory<BlogContext> dbContextFactory;
         private NavigationManager navigationManager;
         public Post SelectedPost { get; set; }
+        public bool EditMode { get; set; }
 
         public PostEditViewModel(
             IDbContextFactory<BlogContext> dbContextFactory,
@@ -27,12 +29,18 @@ namespace Blog.ViewModel
                 IsLoading = true;
                 using var ctx = dbContextFactory.CreateDbContext();
                 var post = ctx.Posts.FirstOrDefault(x => x.Id == SelectedPost.Id);
-                if (post != null)
+                if (post != null && EditMode)
                 {
                     post.Text = SelectedPost.Text;
-                    ctx.SaveChanges();
-                    navigationManager.NavigateTo("/");
                 }
+                else
+                {
+                    post.Published = DateTime.Now;
+                    post.Created = DateTime.Now; 
+                    ctx.Posts.Add(post);
+                }
+                ctx.SaveChanges();
+                navigationManager.NavigateTo("/");
             }
             catch (Exception ex)
             {
