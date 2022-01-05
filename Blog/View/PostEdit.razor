@@ -2,38 +2,99 @@
 @attribute [Authorize(Roles = "Author")]
 
 <div class="postEdit">
-    @if (@ViewModel.SelectedPost != null)
+    @if (ViewModel.StepNumber == 1)
     {
-        <div class="header">
-            @if (ViewModel.EditMode)
-            {
-                <h2>@ViewModel.SelectedPost.Name - Bearbeiten</h2>
-            }
-            else
-            {
-                <h2>Hinzufügen</h2>
-            }
-        </div>
-        <div class="editor">
-            <RadzenHtmlEditor @bind-Value=@ViewModel.SelectedPost.Text UploadUrl="upload/image">
-                <RadzenHtmlEditorUndo />
-                <RadzenHtmlEditorRedo />
-                <RadzenHtmlEditorSeparator />
-                <RadzenHtmlEditorBold />
-                <RadzenHtmlEditorItalic />
-                <RadzenHtmlEditorUnderline />
-                <RadzenHtmlEditorStrikeThrough />
-                <RadzenHtmlEditorSeparator />
-                <RadzenHtmlEditorColor />
-                <RadzenHtmlEditorBackground />
-                <RadzenHtmlEditorRemoveFormat />
-                <RadzenButton Text="Speichern" Click="ViewModel.Save" />
-            </RadzenHtmlEditor>
-        </div>
+        @if (ViewModel.SelectedPost != null)
+        {
+            <div class="header">
+                @if (ViewModel.EditMode)
+                {
+                    <h2>@ViewModel.SelectedPost.Name - Bearbeiten</h2>
+                }
+                else
+                {
+                    <h2>Hinzufügen</h2>
+                }
+            </div>
+            <div class="editor">
+                <RadzenHtmlEditor @bind-Value=@ViewModel.SelectedPost.Text UploadUrl="upload/image">
+                    <RadzenHtmlEditorUndo />
+                    <RadzenHtmlEditorRedo />
+                    <RadzenHtmlEditorSeparator />
+                    <RadzenHtmlEditorBold />
+                    <RadzenHtmlEditorItalic />
+                    <RadzenHtmlEditorUnderline />
+                    <RadzenHtmlEditorStrikeThrough />
+                    <RadzenHtmlEditorSeparator />
+                    <RadzenHtmlEditorColor />
+                    <RadzenHtmlEditorBackground />
+                    <RadzenHtmlEditorRemoveFormat />
+                    <RadzenButton Text="Weiter" Click="ViewModel.NextStep" Disabled="string.IsNullOrWhiteSpace(ViewModel.SelectedPost.Text)" />
+                </RadzenHtmlEditor>
+            </div>
+        }
+        else
+        {
+            <p>Konnte Beitrag nicht laden...</p>
+        }
+    }
+    else if (ViewModel.StepNumber == 2)
+    {
+        if (ViewModel.IsLoading)
+        {
+            <p>Wird geladen...</p>
+        }
+        else
+        {
+            <div class="stepTwo">
+                <div class="header">
+                    <h3>Schritt 2</h3>
+                </div>
+                <div class="nameOfPost">
+                    <div class="label">
+                        <p>Name des Beitrags: </p>
+                    </div>
+                    <div class="tbNameOfPost">
+                        <RadzenTextBox Placeholder="Name des Beitrags" @bind-Value=@ViewModel.PostName />
+                    </div>
+                </div>
+                <div class="readTime">
+                    <div class="label">
+                        <p>Lesezeit: </p>
+                    </div>
+                    <div class="tbReadTime">
+                        <RadzenNumeric TValue="int" Placeholder="Lesezeit" @bind-Value=@ViewModel.ReadTime />
+                    </div>
+                </div>
+                <div class="categories">
+                    <div class="label">
+                        <p>Kategorien: </p>
+                    </div>
+                    <div class="dDCategories">
+                        <RadzenDropDown AllowClear="true"
+                                @bind-Value=@ViewModel.CategorieIdList Multiple="true" Placeholder="Select..." Data=@ViewModel.CategorieList TextProperty="Name" ValueProperty="Id" />
+                    </div>
+                </div>
+                <div class="tags">
+                    <div class="label">
+                        <p>Tags: </p>
+                    </div>
+                    <div class="dDTags">
+                        <RadzenDropDown AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                @bind-Value=@ViewModel.TagIdList Multiple="true" Placeholder="Select..." Data=@ViewModel.TagList TextProperty="Name" ValueProperty="Id" />
+                    </div>
+                </div>
+                <div class="save">
+                    <div class="saveButton">
+                        <RadzenButton Text="Speichern" Click="@ViewModel.Save" />
+                    </div>
+                </div>
+            </div>
+        }
     }
     else
     {
-        <p>Konnte Beitrag nicht laden...</p>
+        <p>Fehler aufgetreten</p>
     }
 </div>
 

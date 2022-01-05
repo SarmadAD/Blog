@@ -7,3 +7,18 @@
 .editor{
     width:50%
 }
+
+.stepTwo {
+    display: flex;
+    width: 25%;
+    flex-direction: column;
+}
+
+    .stepTwo > div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1em;
+    }
+.save {
+    justify-content: end !important;
+}

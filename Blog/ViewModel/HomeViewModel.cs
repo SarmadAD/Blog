@@ -49,6 +49,7 @@ namespace Blog.ViewModel
                     .ThenInclude(x=>x.Tag)
                     .Include(x => x.PostUsers)
                     .ThenInclude(x => x.User)
+                    .OrderByDescending(x=>x.Published)
                     .ToList();
             }
             catch (Exception ex)
@@ -105,7 +106,6 @@ namespace Blog.ViewModel
             DeleteLocalStorage();
             SetSelectedPostInLocalStorage(post);
             navigationManager.NavigateTo("/postEdit");
-            //Die Logik für neue Beiträge weiter programmieren 
         }
 
         private async void SetSelectedPostInLocalStorage(Post post) => await localStorage.SetItemAsync(post.Id.ToString(), post.Name);
