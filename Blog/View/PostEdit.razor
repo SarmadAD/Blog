@@ -48,14 +48,27 @@
         {
             <div class="stepTwo">
                 <div class="header">
-                    <h3>Schritt 2</h3>
+                    <div class="backButton">
+                        <RadzenButton Text="Zurück" Click="@ViewModel.StepDown" />
+                    </div>
+                    <div class="headTitle">
+                        <h3>Schritt 2</h3>
+                    </div>
                 </div>
                 <div class="nameOfPost">
                     <div class="label">
                         <p>Name des Beitrags: </p>
                     </div>
                     <div class="tbNameOfPost">
-                        <RadzenTextBox Placeholder="Name des Beitrags" @bind-Value=@ViewModel.PostName />
+                        <RadzenTextBox Placeholder="Name des Beitrags" @bind-Value=@ViewModel.SelectedPost.Name />
+                    </div>
+                </div>
+                <div class="shortDescription">
+                    <div class="label">
+                        <p>Kurz Beschreibung: </p>
+                    </div>
+                    <div class="tbShortDescription">
+                        <RadzenTextArea Placeholder="Kurzbeschreibung des Beitrages..." @bind-Value=@ViewModel.SelectedPost.Description />
                     </div>
                 </div>
                 <div class="readTime">

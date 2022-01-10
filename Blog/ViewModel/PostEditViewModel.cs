@@ -25,6 +25,7 @@ namespace Blog.ViewModel
         public IEnumerable<int> TagIdList { get; set; } = new List<int>();
         public string PostName { get; set; } = string.Empty;
         public int ReadTime { get; set; } = 1;
+        public string PostShortDescription { get; set; } = string.Empty;
         public PostEditViewModel(
             IDbContextFactory<BlogContext> dbContextFactory,
             NavigationManager navigationManager,
@@ -39,8 +40,6 @@ namespace Blog.ViewModel
         /*
          - User automatisch festlegen, 
             - beim ändern von einen anderen User wird dieser mit hinzugefügt
-         - Schritt 1 und Schritt zwei Switch als Pfeil einfügen
-         - kurz beschreibung hinzufügen
          - Bug beheben wenn man eine KAtegorie oder Tag löscht das das nicht wirklich gelöscht wird (siehe Datenbank und PostCard unten)
          - 
          */
@@ -57,6 +56,8 @@ namespace Blog.ViewModel
                     //bearbeiten
                     SetDefaultValue(post);
                     post.Text = SelectedPost.Text;
+                    post.Description = SelectedPost.Description;
+                    post.Name = SelectedPost.Name;
                 }
                 else
                 {
@@ -87,7 +88,6 @@ namespace Blog.ViewModel
 
         private void SetDefaultValue(Post post)
         {
-            post.Name = PostName;
             post.Readtime = ReadTime;
             post.LastEditor = "sarmad";
             post.LastEdit = DateTime.Now;
@@ -129,6 +129,11 @@ namespace Blog.ViewModel
                 TagIdList = post.PostTags.Select(x => x.TagId);
                 CategorieIdList = post.PostCategories.Select(x => x.CategoryId);
             }
+        }
+
+        public void StepDown()
+        {
+            StepNumber--;
         }
 
         public void LoadDropDownData()
