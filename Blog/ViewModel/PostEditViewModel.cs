@@ -177,7 +177,7 @@ namespace Blog.ViewModel
             {
                 TagIdList = post.PostTags.Select(x => x.TagId);
                 CategorieIdList = post.PostCategories.Select(x => x.CategoryId);
-            }s
+            }
         }
 
         public void StepDown()
