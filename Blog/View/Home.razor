@@ -9,12 +9,15 @@
 }
 else
 {
-    <div class="posts">
-        <AuthorizeView>
+    <div class="postNewButton">
+        <AuthorizeView Roles="Author">
             <Authorized>
                 <RadzenButton Text="Neuer Beitrag" Click="(()=>ViewModel.EditMode(new Models.Post()))" />
             </Authorized>
         </AuthorizeView>
+    </div>
+    <div class="posts">
+
         @foreach (var post in ViewModel.PostList)
         {
             <AuthorizeView Roles=@Resources.Author>

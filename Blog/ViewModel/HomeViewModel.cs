@@ -100,6 +100,7 @@ namespace Blog.ViewModel
         public void EditMode(Post post)
         {
             postEditViewModel.EditMode = false;
+            postEditViewModel.StepNumber = 1;
             postEditViewModel.SelectedPost = post;
             if (post.Id > 0)
                 postEditViewModel.EditMode = true;

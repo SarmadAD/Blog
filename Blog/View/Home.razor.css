@@ -2,7 +2,7 @@
     text-align: center;
     font-weight: lighter;
     color: #5076a0;
-    margin-bottom: 2em;
+    margin-bottom:1em;
 }
 
 .posts {
@@ -54,4 +54,8 @@
     width: 100%;
     text-align: right;
     height: 40px;
+}
+
+.postNewButton {
+    margin-bottom: 1em;
 }

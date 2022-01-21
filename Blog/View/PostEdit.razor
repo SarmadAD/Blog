@@ -76,7 +76,7 @@
                         <p>Lesezeit: </p>
                     </div>
                     <div class="tbReadTime">
-                        <RadzenNumeric TValue="int" Placeholder="Lesezeit" @bind-Value=@ViewModel.ReadTime />
+                        <RadzenNumeric TValue="int" Placeholder="Lesezeit" @bind-Value=@ViewModel.ReadTime Min="0" Step="1"/>
                     </div>
                 </div>
                 <div class="categories">

@@ -6,6 +6,7 @@ using Blog.Classes.Auth;
 using Blog.Models;
 using Blog.View.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Radzen;
 
@@ -26,35 +27,40 @@ namespace Blog.ViewModel
         public string PostName { get; set; } = string.Empty;
         public int ReadTime { get; set; } = 1;
         public string PostShortDescription { get; set; } = string.Empty;
+        public AuthenticationStateProvider authenticationStateProvider;
         public PostEditViewModel(
             IDbContextFactory<BlogContext> dbContextFactory,
+            AuthenticationStateProvider authenticationStateProvider,
             NavigationManager navigationManager,
             DialogService DialogService)
         {
             this.dbContextFactory = dbContextFactory;
             this.navigationManager = navigationManager;
             this.DialogService = DialogService;
+            this.authenticationStateProvider = authenticationStateProvider;
         }
 
-
-        /*
-         - User automatisch festlegen, 
-            - beim ändern von einen anderen User wird dieser mit hinzugefügt
-         - Bug beheben wenn man eine KAtegorie oder Tag löscht das das nicht wirklich gelöscht wird (siehe Datenbank und PostCard unten)
-         - 
-         */
         public async Task Save()
         {
             try
             {
                 IsLoading = true;
                 using var ctx = dbContextFactory.CreateDbContext();
-                var post = ctx.Posts.FirstOrDefault(x => x.Id == SelectedPost.Id);
+                var user = GetUser(ctx);
+
+                var post = ctx.Posts
+                    .Include(x => x.PostCategories)
+                    .Include(x => x.PostTags)
+                    .Include(x => x.PostUsers)
+                    .FirstOrDefault(x => x.Id == SelectedPost.Id);
 
                 if (post != null && EditMode)
                 {
                     //bearbeiten
-                    SetDefaultValue(post);
+                    SetDefaultValue(post, user);
+                    SetPostCategorie(post);
+                    SetPostTag(post);
+                    SetPostUser(post, user);
                     post.Text = SelectedPost.Text;
                     post.Description = SelectedPost.Description;
                     post.Name = SelectedPost.Name;
@@ -63,10 +69,11 @@ namespace Blog.ViewModel
                 {
                     //Neu hinzufügen
                     post = SelectedPost;
-                    SetDefaultValue(post);
+                    SetDefaultValue(post, user);
+                    SetPostUser(post, user);
                     post.Published = DateTime.Now;
                     post.Created = DateTime.Now;
-                    post.Creater = "sarmad";
+                    post.Creater = user.Login;
                     SetPostCategorie(post);
                     SetPostTag(post);
 
@@ -86,44 +93,86 @@ namespace Blog.ViewModel
             }
         }
 
-        private void SetDefaultValue(Post post)
+        private void SetPostUser(Post post, User user)
+        {
+            if (user != null)
+            {
+                if (post.PostUsers.Any())
+                {
+                    if (post.PostUsers.All(x => x.UserId != user.Id))
+                    {
+                        var postUserItem = new PostUser
+                        {
+                            PostId = post.Id,
+                            UserId = user.Id,
+                        };
+                        post.PostUsers.Add(postUserItem);
+                    }
+                }
+                else
+                {
+                    var postUserItem = new PostUser
+                    {
+                        PostId = post.Id,
+                        UserId = user.Id,
+                    };
+                    post.PostUsers.Add(postUserItem);
+                }
+            }
+        }
+
+        private void SetDefaultValue(Post post, User user)
         {
             post.Readtime = ReadTime;
-            post.LastEditor = "sarmad";
+            post.LastEditor = user.Login;
             post.LastEdit = DateTime.Now;
         }
 
         private void SetPostCategorie(Post post)
         {
-            foreach (var categorieId in CategorieIdList)
+            post.PostCategories = new List<PostCategory>();
+            if (CategorieIdList != null && CategorieIdList.Any())
             {
-                var postCategorieItem = new PostCategory
+                foreach (var categorieId in CategorieIdList)
                 {
-                    PostId = post.Id,
-                    CategoryId = categorieId,
-                };
-                post.PostCategories.Add(postCategorieItem);
+                    var postCategorieItem = new PostCategory
+                    {
+                        PostId = post.Id,
+                        CategoryId = categorieId,
+                    };
+                    post.PostCategories.Add(postCategorieItem);
+                }
             }
         }
 
         private void SetPostTag(Post post)
         {
-            foreach (var tagId in TagIdList)
+            post.PostTags = new List<PostTag>();
+            if (TagIdList != null && TagIdList.Any())
             {
-                var postTagItem = new PostTag
+                foreach (var tagId in TagIdList)
                 {
-                    PostId = post.Id,
-                    TagId = tagId,
-                };
-                post.PostTags.Add(postTagItem);
+                    var postTagItem = new PostTag
+                    {
+                        PostId = post.Id,
+                        TagId = tagId,
+                    };
+                    post.PostTags.Add(postTagItem);
+                }
             }
         }
 
-        public void NextStep() 
+        private User GetUser(BlogContext ctx)
+        {
+            return ctx.Users
+                .FirstOrDefault(x => x.Login == CustomAuthenticationStateProvider.CurrentUser.Login);
+        }
+
+        public void NextStep()
         {
             StepNumber++;
             using var ctx = dbContextFactory.CreateDbContext();
-            var post = ctx.Posts.Include(x=>x.PostCategories).Include(x=>x.PostTags).FirstOrDefault(x => x.Id == SelectedPost.Id);
+            var post = ctx.Posts.Include(x => x.PostCategories).Include(x => x.PostTags).FirstOrDefault(x => x.Id == SelectedPost.Id);
             if (post != null && EditMode)
             {
                 TagIdList = post.PostTags.Select(x => x.TagId);
