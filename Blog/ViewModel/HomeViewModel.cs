@@ -2,6 +2,7 @@
 using Blog.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
+using Radzen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace Blog.ViewModel
 
         public List<Post> PostList { get; set; }
         public bool ShowPost { get; set; }
+        public bool DeletePopUpVisible { get; set; }
 
         public HomeViewModel(
             IDbContextFactory<BlogContext> dbContextFactory, 
@@ -107,6 +109,30 @@ namespace Blog.ViewModel
             DeleteLocalStorage();
             SetSelectedPostInLocalStorage(post);
             navigationManager.NavigateTo("/postEdit");
+        }
+
+        public async void DeletePost(Post post)
+        {
+            try
+            {
+                IsLoading = true;
+                using var ctx = dbContextFactory.CreateDbContext();
+                var getPost = ctx.Posts.FirstOrDefault(x=>x.Id == post.Id);
+                if (getPost != null)
+                {
+                    PostList.Remove(post);
+                    getPost.State = (int)State.Deleted;
+                    ctx.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         private async void SetSelectedPostInLocalStorage(Post post) => await localStorage.SetItemAsync(post.Id.ToString(), post.Name);
