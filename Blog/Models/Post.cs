@@ -15,11 +15,12 @@ namespace Blog.Models
         }
 
         public int Id { get; set; }
-        public string Name { get; set; } 
+        public string Name { get; set; }
         public DateTime Published { get; set; }
         public int? Readtime { get; set; }
         public string Description { get; set; }
         public string Text { get; set; }
+        public int State { get; set; }
         public string Creater { get; set; }
         public DateTime? Created { get; set; }
         public string LastEditor { get; set; }

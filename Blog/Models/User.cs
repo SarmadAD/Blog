@@ -20,6 +20,7 @@ namespace Blog.Models
         public string Lastname { get; set; }
         public string Password { get; set; }
         public int Typ { get; set; }
+        public int State { get; set; }
         public string Creater { get; set; }
         public DateTime? Created { get; set; }
         public string LastEditor { get; set; }

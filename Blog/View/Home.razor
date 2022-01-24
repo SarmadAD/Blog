@@ -16,57 +16,63 @@ else
             </Authorized>
         </AuthorizeView>
     </div>
-    <div class="posts">
-
-        @foreach (var post in ViewModel.PostList)
-        {
-            <AuthorizeView Roles=@Resources.Author>
-                <Authorized>
-                    <div class="tools">
-                        <div class="editPost">
-                            <RadzenButton Click="(()=>ViewModel.EditMode(post))"> <Pencil Width="24" Height="24" /> </RadzenButton>
+    @if (ViewModel.PostList != null && ViewModel.PostList.Any())
+    {
+        <div class="posts">
+            @foreach (var post in ViewModel.PostList)
+            {
+                <AuthorizeView Roles=@Resources.Author>
+                    <Authorized>
+                        <div class="tools">
+                            <div class="editPost">
+                                <RadzenButton Click="(()=>ViewModel.EditMode(post))"> <Pencil Width="24" Height="24" /> </RadzenButton>
+                            </div>
                         </div>
-                    </div>
-                </Authorized>
-            </AuthorizeView>
-            <RadzenCard Style="width: 25%;
+                    </Authorized>
+                </AuthorizeView>
+                <RadzenCard Style="width: 25%;
                          height: 700px;
                          flex: 0 0 auto;
                          margin-right: 1em;
                          cursor: pointer; " @onclick="(()=>ViewModel.OpenSelectedPost(post))">
-                <div class="post">
-                    <div class="name">
-                        <h3>@post.Name</h3>
-                    </div>
-                    <div class="description">
-                        <p>@post.Description</p>
-                    </div>
-                    <div class="bottomPost">
-                        <div class="categories">
-                            Kategorie: @ViewModel.Categorys(post.PostCategories)
+                    <div class="post">
+                        <div class="name">
+                            <h3>@post.Name</h3>
                         </div>
-                        <div class="tags" style="display: flex;">
-                            <div class="tagCaption">
-                                Tags:
+                        <div class="description">
+                            <p>@post.Description</p>
+                        </div>
+                        <div class="bottomPost">
+                            <div class="categories">
+                                Kategorie: @ViewModel.Categorys(post.PostCategories)
                             </div>
-                            <div class="tag">
-                                @if (post.PostTags.Any())
-                                {
-                                    @foreach (var post in post.PostTags)
+                            <div class="tags" style="display: flex;">
+                                <div class="tagCaption">
+                                    Tags:
+                                </div>
+                                <div class="tag">
+                                    @if (post.PostTags.Any())
                                     {
-                                        <p class="singleTag">@post.Tag.Name</p>
+                                        @foreach (var post in post.PostTags)
+                                        {
+                                            <p class="singleTag">@post.Tag.Name</p>
+                                        }
                                     }
-                                }
-                                else
-                                {
-                                    <p>Keine Tags gefunden...</p>
-                                }
+                                    else
+                                    {
+                                        <p>Keine Tags gefunden...</p>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </RadzenCard>
-        }
-    </div>
+                </RadzenCard>
+            }
+        </div>
+    }
+    else
+    {
+        <h2>Keine Beiträge vorhanden...</h2>
+    }
 }
 
