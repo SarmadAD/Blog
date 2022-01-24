@@ -21,15 +21,22 @@ else
         <div class="posts">
             @foreach (var post in ViewModel.PostList)
             {
-                <AuthorizeView Roles=@Resources.Author>
-                    <Authorized>
-                        <div class="tools">
+                <div class="tools">
+                    <AuthorizeView Roles=@Resources.Author>
+                        <Authorized>
                             <div class="editPost">
                                 <RadzenButton Click="(()=>ViewModel.EditMode(post))"> <Pencil Width="24" Height="24" /> </RadzenButton>
                             </div>
-                        </div>
-                    </Authorized>
-                </AuthorizeView>
+                        </Authorized>
+                    </AuthorizeView>
+                    <AuthorizeView Roles="Admin">
+                        <Authorized>
+                            <div class="postDeleteButton">
+                                <RadzenButton Text="Löschen" Click="(()=>ViewModel.DeletePost(post))" />
+                            </div>
+                        </Authorized>
+                    </AuthorizeView>
+                </div>
                 <RadzenCard Style="width: 25%;
                          height: 700px;
                          flex: 0 0 auto;
