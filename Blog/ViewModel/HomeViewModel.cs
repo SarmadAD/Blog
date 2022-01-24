@@ -1,13 +1,12 @@
 ﻿using Blazored.LocalStorage;
-using Blog.Classes.API;
 using Blog.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
+using static Blog.Classes.ObjClasses.EnumClass;
 
 namespace Blog.ViewModel
 {
@@ -43,6 +42,7 @@ namespace Blog.ViewModel
                 IsLoading = true;
                 using var ctx = dbContextFactory.CreateDbContext();
                 PostList = ctx.Posts
+                    .Where(x=>x.State == (int)State.Active)
                     .Include(x => x.PostCategories)
                     .ThenInclude(x => x.Category)
                     .Include(x=>x.PostTags)

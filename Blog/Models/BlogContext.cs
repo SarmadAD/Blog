@@ -86,7 +86,19 @@ namespace Blog.Models
             {
                 entity.ToTable("Category");
 
+                entity.Property(e => e.Created).HasColumnType("date");
+
+                entity.Property(e => e.Creater)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
                 entity.Property(e => e.Description).HasMaxLength(255);
+
+                entity.Property(e => e.LastEdit).HasColumnType("date");
+
+                entity.Property(e => e.LastEditor)
+                    .IsRequired()
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -205,7 +217,19 @@ namespace Blog.Models
             {
                 entity.ToTable("Tag");
 
+                entity.Property(e => e.Created).HasColumnType("date");
+
+                entity.Property(e => e.Creater)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
                 entity.Property(e => e.Description).HasMaxLength(255);
+
+                entity.Property(e => e.LastEdit).HasColumnType("date");
+
+                entity.Property(e => e.LastEditor)
+                    .IsRequired()
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
