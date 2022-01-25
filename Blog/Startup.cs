@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Blog.Classes.Auth;
 using Radzen;
 using Blazored.LocalStorage;
+using Blog.Classes.ObjClasses;
 
 namespace Blog
 {
@@ -47,9 +48,13 @@ namespace Blog
             services.AddScoped<DialogService>();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
+
             var cs = Configuration.GetConnectionString("BloggingDatabase");
             services.AddDbContextFactory<BlogContext>(opt => opt.UseSqlServer(cs));
             services.AddDbContext<BlogContext>(opt => opt.UseSqlServer(cs));
+
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

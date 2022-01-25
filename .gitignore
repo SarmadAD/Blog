@@ -8,7 +8,7 @@ packages/
 *.user
 *.sln.docstates
 Connection.xml
-appsettings.json
+appsettings.Development.json
 *.pubxml
 # Build results
 [Dd]ebug/
