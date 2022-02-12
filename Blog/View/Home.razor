@@ -12,7 +12,7 @@ else
     <div class="postNewButton">
         <AuthorizeView Roles="Author">
             <Authorized>
-                <RadzenButton Text="Neuer Beitrag" Click="(()=>ViewModel.EditMode(new Models.Post()))" />
+                <RadzenButton Text="Neuer Beitrag" Click="(()=>ViewModel.EditMode(new Models.Post()))"><Plus Width="24" Height="24" /></RadzenButton>
             </Authorized>
         </AuthorizeView>
     </div>
@@ -32,16 +32,13 @@ else
                     <AuthorizeView Roles="Admin">
                         <Authorized>
                             <div class="postDeleteButton">
-                                <RadzenButton Text="Löschen" Click="(()=>ViewModel.DeletePost(post))" />
+                                <RadzenButton Text="Löschen" Click="(()=>ViewModel.DeletePost(post))"><Delete Width="24" Height="24" /></RadzenButton>
                             </div>
                         </Authorized>
                     </AuthorizeView>
                 </div>
-                <RadzenCard Style="width: 25%;
-                         height: 700px;
-                         flex: 0 0 auto;
-                         margin-right: 1em;
-                         cursor: pointer; " @onclick="(()=>ViewModel.OpenSelectedPost(post))">
+                <RadzenCard 
+                Style="width: 25%;height: 700px;flex: 0 0 auto;margin-right: 1em;cursor: pointer;margin-left:1em;margin-bottom:1em;"@onclick="(()=>ViewModel.OpenSelectedPost(post))">
                     <div class="post">
                         <div class="name">
                             <h3>@post.Name</h3>
