@@ -1,8 +1,8 @@
 ﻿.homeHeader {
     text-align: center;
     font-weight: lighter;
-    color: #5076a0;
-    margin-bottom:1em;
+    color: #1b4332;
+    margin-bottom: 1em;
 }
 
 .posts {
@@ -18,7 +18,7 @@
 }
 
     .post:hover {
-        background-color: rgb(245,245,245);
+        background-color: #d8f3dc;
     }
 
 .name {

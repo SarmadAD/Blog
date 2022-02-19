@@ -12,7 +12,7 @@
 .aboutMeImage {
     width: 43%;
     border-radius: 140px;
-    border: solid #88afd9;
+    border: solid #1b4332;
 }
 
 .text {
@@ -28,5 +28,5 @@
 }
 
 .aboutMeWork {
-    color:#a1c0e1;
+    color: #40916c;
 }
