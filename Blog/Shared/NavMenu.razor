@@ -1,54 +1,119 @@
 ﻿<div class="navbar">
-    <ul class="navUlNormal">
-        <li style="margin: 0em 10em 0em 0em;">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.Prefix">
-                <span class="oi oi-home" aria-hidden="true"></span>
-            </NavLink>
-        </li>
-        <li style="margin-right:2em">
-            <NavLink class="nav-link" href="overMe" Match="NavLinkMatch.Prefix">
-                <span class="oi oi-person" aria-hidden="true"></span> Über mich
-            </NavLink>
-        </li>
-        <li>
-            <NavLink class="nav-link" href="contact" Match="NavLinkMatch.Prefix">
-                <span class="oi oi-map" aria-hidden="true"></span> Kontakt
-            </NavLink>
-        </li>
-    </ul>
-    <AuthorizeView>
-        <Authorized>
-            <div class="logedin">
-                <div class="name">
-                    Hallo, @context.User.Identity.Name!
-                </div>
-                <div class="logoutbt">
-                    <RadzenButton Click="BeginLogout" Text="Logout" />
-                </div>
-            </div>
-        </Authorized>
-        <NotAuthorized>
-            <ul class="navUlLogin">
+    <div class="menuIcon" @onclick="TurnMenu">
+        <Menu Height="30" Width="30" />
+    </div>
+    @if (MenuClicked)
+    {
+        <div class="navLinks">
+            <ul class="navUlNormal">
                 <li>
-                    <NavLink class="nav-link" href="login" Match="NavLinkMatch.Prefix">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Login
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.Prefix">
+                        <span class="oi oi-home" aria-hidden="true"></span> Home
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink class="nav-link" href="register" Match="NavLinkMatch.Prefix">
-                        <span class="oi oi-musical-note" aria-hidden="true"></span> Registrieren
+                    <NavLink class="nav-link" href="overMe" Match="NavLinkMatch.Prefix">
+                        <span class="oi oi-person" aria-hidden="true"></span> Über mich
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink class="nav-link" href="contact" Match="NavLinkMatch.Prefix">
+                        <span class="oi oi-map" aria-hidden="true"></span> Kontakt
                     </NavLink>
                 </li>
             </ul>
-        </NotAuthorized>
-    </AuthorizeView>
+            <AuthorizeView>
+                <Authorized>
+                    <ul class="navUlLogoutAndName">
+                        <li>
+                            <NavLink class="nav-link" Match="NavLinkMatch.Prefix" @onclick="BeginLogout">
+                                <span class="oi oi-musical-note" aria-hidden="true"></span> Logout
+                            </NavLink>
+                        </li>
+                        <li>
+                            <div class="name">
+                                Eingeloggt als @context.User.Identity.Name
+                            </div>
+                        </li>
+                    </ul>
+                </Authorized>
+                <NotAuthorized>
+                    <ul class="navUlLogin">
+                        <li>
+                            <NavLink class="nav-link" href="login" Match="NavLinkMatch.Prefix">
+                                <span class="oi oi-plus" aria-hidden="true"></span> Login
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink class="nav-link" href="register" Match="NavLinkMatch.Prefix">
+                                <span class="oi oi-musical-note" aria-hidden="true"></span> Registrieren
+                            </NavLink>
+                        </li>
+                    </ul>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+    }
+    else
+    {
+        <div class="notClicked">
+            <div class="navLinks">
+                <ul class="navUlNormal">
+                    <li style="margin: 0em 10em 0em 0em;">
+                        <NavLink class="nav-link" href="" Match="NavLinkMatch.Prefix">
+                            <span class="oi oi-home" aria-hidden="true"></span>
+                        </NavLink>
+                    </li>
+                    <li style="margin-right:2em">
+                        <NavLink class="nav-link" href="overMe" Match="NavLinkMatch.Prefix">
+                            <span class="oi oi-person" aria-hidden="true"></span> Über mich
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink class="nav-link" href="contact" Match="NavLinkMatch.Prefix">
+                            <span class="oi oi-map" aria-hidden="true"></span> Kontakt
+                        </NavLink>
+                    </li>
+                </ul>
+                <AuthorizeView>
+                    <Authorized>
+                        <div class="logedin">
+                            <div class="name">
+                                Hallo, @context.User.Identity.Name!
+                            </div>
+                            <div class="logoutbt">
+                                <RadzenButton Click="BeginLogout" Text="Logout" />
+                            </div>
+                        </div>
+                    </Authorized>
+                    <NotAuthorized>
+                        <ul class="navUlLogin">
+                            <li>
+                                <NavLink class="nav-link" href="login" Match="NavLinkMatch.Prefix">
+                                    <span class="oi oi-plus" aria-hidden="true"></span> Login
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink class="nav-link" href="register" Match="NavLinkMatch.Prefix">
+                                    <span class="oi oi-musical-note" aria-hidden="true"></span> Registrieren
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
+        </div>
+    }
 </div>
+
+
 
 @code {
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
     [Inject] public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     [Inject] public NavigationManager NavigationManager { get; set; }
+    public bool MenuClicked { get; set; }
 
     private string _authMessage;
     private void BeginLogout()
@@ -56,4 +121,6 @@
         ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsLoggedOut();
         NavigationManager.NavigateTo("/");
     }
+
+    private void TurnMenu() => MenuClicked = !MenuClicked;
 }
