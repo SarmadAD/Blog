@@ -12,7 +12,7 @@
     display: flex;
     list-style-type: none;
     width: 35%;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .navUlLogin {
@@ -29,6 +29,16 @@
 .logedin {
     display: flex;
     width: 15%;
+    justify-content: space-between;
+}
+
+.notClicked {
+    width: 100%;
+}
+
+
+.navLinks {
+    display: flex;
     justify-content: space-between;
 }
 

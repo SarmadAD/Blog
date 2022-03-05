@@ -55,7 +55,7 @@ Extra extra large	xxl	≥ 1400px
     border-radius: 10px;
 }
 
-.tools{
+.tools {
 }
 
 .editPost {
@@ -66,4 +66,22 @@ Extra extra large	xxl	≥ 1400px
 
 .postNewButton {
     margin-bottom: 1em;
+}
+
+.radzenCard {
+    width: 100% !important;
+    height: 700px;
+    flex: 0 0 auto;
+    margin-right: 1em;
+    cursor: pointer;
+    margin-left: 1em;
+    margin-bottom: 1em;
+    background-color: #b7e4c7;
+}
+
+/* Small Devices */
+@media only screen and (max-width: 570px) {
+    .posts {
+        flex-direction:column;
+    }
 }
