@@ -78,5 +78,33 @@ namespace Blog.ViewModel
                 IsLoading = false;
             }
         }
+
+        public string Categorys()
+        {
+            var categoryString = string.Empty;
+            var categories = SelectedPost.PostCategories.ToList();
+            if (categories.Any())
+            {
+                foreach (var category in categories)
+                    categoryString += category.Category.Name + ", ";
+            }
+            else categoryString = "Keine Kategorien gefunden";
+
+            return categoryString;
+        }
+
+        public string Tags()
+        {
+            var tagsString = string.Empty;
+            var tags = SelectedPost.PostTags.ToList();
+            if (tags.Any())
+            {
+                foreach (var tag in tags)
+                    tagsString += tag.Tag.Name + ", ";
+            }
+            else tagsString = "Keine Tags gefunden";
+
+            return tagsString;
+        }
     }
 }

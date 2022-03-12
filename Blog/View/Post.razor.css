@@ -11,6 +11,7 @@
 
 .authorReadTime {
     display: flex;
+    justify-content: space-between;
     width: 100%;
     color: gray;
 }
@@ -33,7 +34,35 @@
     margin-top: 1em;
 }
 
-.readTime {
-    text-align: end;
-    width: 25%;
+.categories {
+    width: 50%;
+}
+
+.tags{
+    display:flex;
+    width:100%;
+}
+
+.tag {
+    display: flex;
+}
+
+.singleTag {
+    border: 2px solid #dee0e2;
+    border-radius: 10px;
+}
+
+/* Small Devices */
+@media only screen and (max-width: 570px) {
+    .authorReadTimeContent {
+        width: 100%;
+    }
+
+    .categories {
+        width: 100%;
+    }
+
+    .postCaption {
+        font-size: 12;
+    }
 }

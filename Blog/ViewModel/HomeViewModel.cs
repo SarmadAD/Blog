@@ -78,19 +78,6 @@ namespace Blog.ViewModel
             return categoryString;
         }
 
-        public string Tags(ICollection<PostTag> tags)
-        {
-            var tagsString = string.Empty;
-            if (tags.Any())
-            {
-                foreach (var tag in tags)
-                    tagsString += tag.Tag.Name + ", ";
-            }
-            else tagsString = "Keine Tags gefunden";
-
-            return tagsString;
-        }
-
         public void OpenSelectedPost(Post post)
         {
             postViewModel.SelectedPost = post;

@@ -5,6 +5,9 @@
 <div class="post">
     @if (@ViewModel.SelectedPost != null)
     {
+        <div class="categories">
+            @ViewModel.Categorys()
+        </div>
         <div class="postCaption">
             <p>@ViewModel.SelectedPost.Name</p>
         </div>
@@ -13,12 +16,35 @@
                 <div class="author">
                     @ViewModel.LoadAuthor()
                 </div>
-                <div class="readTime">
-                    Lese-Zeit: @ViewModel.SelectedPost.Readtime Minuten
+                <div class="publishedAndReadTime">
+                    <div class="published">
+                        @ViewModel.SelectedPost.Published.ToShortDateString()
+                    </div>
+                    <div class="readTime">
+                        Lese-Zeit: @ViewModel.SelectedPost.Readtime Minuten
+                    </div>
                 </div>
             </div>
             <div class="content">
                 @((MarkupString)ViewModel.SelectedPost.Text)
+            </div>
+        </div>
+        <div class="tags">
+            <div class="tagCaption">
+                Tags:
+            </div>
+            <div class="tag">
+                @if (@ViewModel.SelectedPost.PostTags.Any())
+                {
+                    @foreach (var post in @ViewModel.SelectedPost.PostTags)
+                    {
+                        <p class="singleTag">@post.Tag.Name</p>
+                    }
+                }
+                else
+                {
+                    <p>Keine Tags gefunden...</p>
+                }
             </div>
         </div>
     }
