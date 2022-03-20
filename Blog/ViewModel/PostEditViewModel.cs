@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Radzen;
+using static Blog.Classes.ObjClasses.EnumClass;
 
 namespace Blog.ViewModel
 {
@@ -74,6 +75,7 @@ namespace Blog.ViewModel
                     post.Published = DateTime.Now;
                     post.Created = DateTime.Now;
                     post.Creater = user.Login;
+                    post.State = (int)State.Active;
                     SetPostCategorie(post);
                     SetPostTag(post);
 

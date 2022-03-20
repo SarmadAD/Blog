@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto';
     color: #1b4332 !important;
 }
 
@@ -61,5 +62,5 @@ a:hover {
 }
 
 .rz-button.btn-primary, .btn-primary.rz-paginator-element {
-    background-color: #5076a0 !important;
+    background-color: #1b4332 !important;
 }

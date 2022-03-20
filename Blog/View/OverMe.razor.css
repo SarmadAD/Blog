@@ -1,6 +1,5 @@
 ﻿.overMeHeader {
     text-align: left;
-    font-weight: lighter;
 }
 
 .image {
@@ -30,6 +29,7 @@
 .aboutMeWork {
     color: #40916c;
 }
+
 
 /* Small Devices */
 @media only screen and (max-width: 570px) {
