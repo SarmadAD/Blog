@@ -1,13 +1,14 @@
 ﻿.mainContact {
     display: flex;
-    justify-content:center;
+    justify-content: center;
 }
 
 .mainContainer {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    padding: 1em;
+    padding: 3em;
+    border: solid 2px #1b4332;
 }
 
 .mainContainer > div {
@@ -16,7 +17,11 @@
 
 .mainHeader {
     text-align: center;
-    font-size: x-large;
-    font-weight: lighter;
-    color: #5076a0;
+    font-weight:normal;
+    font-size: 2em;
+    color: #1b4332;
+}
+.btSend{
+    display:flex;
+    justify-content:center;
 }

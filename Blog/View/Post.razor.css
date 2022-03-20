@@ -18,8 +18,7 @@
 
 .postCaption {
     text-align: center;
-    font-weight: lighter;
-    font-size: xx-large;
+    font-size: 2em;
 }
 
 .author {
@@ -40,7 +39,7 @@
 
 .tags{
     display:flex;
-    width:100%;
+    width:50%;
 }
 
 .tag {
@@ -64,5 +63,9 @@
 
     .postCaption {
         font-size: 12;
+    }
+
+    .tags{
+        width:100%;
     }
 }
