@@ -51,7 +51,7 @@ namespace Blog
 
             var cs = Configuration.GetConnectionString("BloggingDatabase");
             services.AddDbContextFactory<BlogContext>(opt => opt.UseSqlServer(cs));
-            services.AddDbContext<BlogContext>(opt => opt.UseSqlServer(cs));
+            services.AddDbContextPool<BlogContext>(opt => opt.UseSqlServer(cs));
 
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
 

@@ -32,6 +32,13 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
-    <script src="_framework/blazor.server.js"></script>
+    <script src="_framework/blazor.server.js"> </script>
+    <script>
+        window.addEventListener('mouseup',function(event){
+               var pol = document.getElementById('pol');
+               if(event.target != pol && event.target.parentNode != pol){
+                   pol.style.display = 'none';
+               }
+         });  </script>
 </body>
 </html>
