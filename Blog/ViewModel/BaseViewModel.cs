@@ -8,3 +8,4 @@ namespace Blog.ViewModel
         public bool IsLoading { get; set; }
     }
 }
+

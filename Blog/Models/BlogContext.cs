@@ -16,7 +16,7 @@ namespace Blog.Models
             : base(options)
         {
         }
-
+        
         public virtual DbSet<AccessRight> AccessRights { get; set; }
         public virtual DbSet<AccessRightGroup> AccessRightGroups { get; set; }
         public virtual DbSet<Category> Categories { get; set; }

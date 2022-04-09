@@ -17,7 +17,6 @@ namespace Blog.ViewModel
     {
         private IDbContextFactory<BlogContext> dbContextFactory;
         private NavigationManager navigationManager;
-        private DialogService DialogService;
         public Post SelectedPost { get; set; }
         public bool EditMode { get; set; }
         public int StepNumber = 1;
@@ -32,12 +31,10 @@ namespace Blog.ViewModel
         public PostEditViewModel(
             IDbContextFactory<BlogContext> dbContextFactory,
             AuthenticationStateProvider authenticationStateProvider,
-            NavigationManager navigationManager,
-            DialogService DialogService)
+            NavigationManager navigationManager)
         {
             this.dbContextFactory = dbContextFactory;
             this.navigationManager = navigationManager;
-            this.DialogService = DialogService;
             this.authenticationStateProvider = authenticationStateProvider;
         }
 
