@@ -10,9 +10,9 @@ a, .btn-link {
     color: #1b4332;
 }
 
-a:hover {
-    color: #b7e4c7;
-}
+    a:hover {
+        color: #b7e4c7;
+    }
 
 .btn-primary {
     color: #fff;
@@ -63,4 +63,20 @@ a:hover {
 
 .rz-button.btn-primary, .btn-primary.rz-paginator-element {
     background-color: #1b4332 !important;
+}
+
+/*height and width of vertical and horizontal scrollbar*/
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #95d5b2;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #1b4332 !important;
 }
