@@ -18,7 +18,12 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: 1em;
+        background-color: inherit;
     }
 .save {
     justify-content: end !important;
+}
+
+.header {
+    background-color: inherit;
 }
