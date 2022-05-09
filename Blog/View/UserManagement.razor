@@ -2,13 +2,51 @@
 @inherits UserManagementBase
 
 <h2>Benutzer</h2>
-<RadzenDataGrid Data="@ViewModel.UserList" TItem="User" AllowVirtualization="true"
+<RadzenDataGrid @ref="@ViewModel.UserGrid" Data="@ViewModel.UserList" TItem="User" AllowVirtualization="true"
                 AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" LogicalFilterOperator="LogicalFilterOperator.Or"
-                AllowSorting="true">
+                AllowSorting="true" EditMode="DataGridEditMode.Single" RowUpdate="@ViewModel.OnEditUser" RowCreate="@ViewModel.OnCreateUser">
     <Columns>
-        <RadzenDataGridColumn TItem="User" Property="Login" Title="Login" />
-        <RadzenDataGridColumn TItem="User" Property="Email" Title="Email" />
-        <RadzenDataGridColumn TItem="User" Property="Firstname" Title="Firstname" />
-        <RadzenDataGridColumn TItem="User" Property="Lastname" Title="Lastname" />
+        <RadzenDataGridColumn TItem="User" Property="Login" Title="Login">
+            <EditTemplate Context="user">
+                <RadzenTextBox @bind-Value="user.Login" Style="width:100%; display: block" Name="Login" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="User" Property="Email" Title="Email">
+            <EditTemplate Context="user">
+                <RadzenTextBox @bind-Value="user.Email" Style="width:100%; display: block" Name="Email" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="User" Property="Firstname" Title="Firstname">
+            <EditTemplate Context="user">
+                <RadzenTextBox @bind-Value="user.Firstname" Style="width:100%; display: block" Name="Firstname" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="User" Property="Lastname" Title="Lastname">
+            <EditTemplate Context="user">
+                <RadzenTextBox @bind-Value="user.Lastname" Style="width:100%; display: block" Name="Lastname" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="User" Context="sampleBlazorModelsSampleOrder" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="120px">
+            <Template Context="user">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Class="m-1" Click="@(args => @ViewModel.EditUser(user))" @onclick:stopPropagation="true">
+                </RadzenButton>
+            </Template>
+            <EditTemplate Context="user">
+                <RadzenButton Icon="check" ButtonStyle="ButtonStyle.Primary" Class="m-1" Click="@((args) => @ViewModel.SaveUser(user))">
+                </RadzenButton>
+                <RadzenButton Icon="close" ButtonStyle="ButtonStyle.Light" Class="m-1" Click="@((args) => @ViewModel.CancelEdit(user))">
+                </RadzenButton>
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="User" Context="order" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Width="60px">
+            <Template Context="user">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Class="m-1" Click="@(args => @ViewModel.DeleteUser(user))" @onclick:stopPropagation="true">
+                </RadzenButton>
+            </Template>
+            <EditTemplate Context="user">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Small" Class="m-1" Click="@(args => @ViewModel.DeleteUser(user))">
+                </RadzenButton>
+            </EditTemplate>
+        </RadzenDataGridColumn>
     </Columns>
 </RadzenDataGrid>
