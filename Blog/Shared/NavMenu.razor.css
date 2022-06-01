@@ -28,18 +28,33 @@
 
 .logedin {
     display: flex;
-    width: 15%;
+    width: 20%;
     justify-content: space-between;
+    align-items: center;
 }
 
 .notClicked {
     width: 100%;
 }
 
+.userSVG{
+    display:flex;
+    cursor:pointer;
+    align-items:baseline;
+}
+
 
 .navLinks {
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
+}
+
+.name {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: baseline;
 }
 
 /* Small Devices */
@@ -95,6 +110,6 @@
     }
 
     .name {
-        padding: 0.3em
+        padding: 0.3em;
     }
 }

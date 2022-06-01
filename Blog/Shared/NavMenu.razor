@@ -79,7 +79,14 @@
                     <Authorized>
                         <div class="logedin">
                             <div class="name">
-                                Hallo, @context.User.Identity.Name!
+                                <p>Hallo, @context.User.Identity.Name!</p>
+                                <AuthorizeView Roles=@Resources.Admin>
+                                    <Authorized Context="userSVG">
+                                        <div class="userSVG" @onclick=NavigateToUserManagement >
+                                            <UserSetting Height="45" Width="45" />
+                                        </div>
+                                    </Authorized>
+                                </AuthorizeView>
                             </div>
                             <div class="logoutbt">
                                 <RadzenButton Click="BeginLogout" Text="Logout" />
@@ -121,6 +128,8 @@
         ((CustomAuthenticationStateProvider)AuthenticationStateProvider).MarkUserAsLoggedOut();
         NavigationManager.NavigateTo("/");
     }
+
+    private void NavigateToUserManagement() => NavigationManager.NavigateTo("userManagement");
 
     private void TurnMenu() => MenuClicked = !MenuClicked;
 }

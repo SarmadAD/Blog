@@ -45,6 +45,7 @@ namespace Blog
             services.AddScoped<RegisterViewModel>();
             services.AddScoped<LoginViewModel>();
             services.AddScoped<PostEditViewModel>();
+            services.AddScoped<UserManagementViewModel>();
             services.AddScoped<DialogService>();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 

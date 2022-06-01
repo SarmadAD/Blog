@@ -10,7 +10,7 @@
 else
 {
     <div class="postNewButton">
-        <AuthorizeView Roles="Author">
+        <AuthorizeView Roles=@Resources.Author>
             <Authorized>
                 <RadzenButton Text="Neuer Beitrag" Click="(()=>ViewModel.EditMode(new Models.Post()))"><Plus Width="24" Height="24" /></RadzenButton>
             </Authorized>

@@ -16,6 +16,7 @@ appsettings.Development.json
 x64/
 [Bb]in/
 [Oo]bj/
+DatabaseInfo.txt
 
 # NuGet Packages
 *.nupkg
