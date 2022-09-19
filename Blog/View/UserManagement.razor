@@ -2,6 +2,7 @@
 @inherits UserManagementBase
 
 <h2>Benutzer</h2>
+<RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add new User" Click="@ViewModel.InsertRow" Disabled=@(ViewModel.UserToInsert != null) />
 <RadzenDataGrid @ref="@ViewModel.UserGrid" Data="@ViewModel.UserList" TItem="User" AllowVirtualization="true"
                 AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" LogicalFilterOperator="LogicalFilterOperator.Or"
                 AllowSorting="true" EditMode="DataGridEditMode.Single" RowUpdate="@ViewModel.OnEditUser" RowCreate="@ViewModel.OnCreateUser">
@@ -9,6 +10,11 @@
         <RadzenDataGridColumn TItem="User" Property="Login" Title="Login">
             <EditTemplate Context="user">
                 <RadzenTextBox @bind-Value="user.Login" Style="width:100%; display: block" Name="Login" />
+            </EditTemplate>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="User" Property="Password" Title="Password">
+            <EditTemplate Context="user">
+                <RadzenTextBox @bind-Value="user.Password" Style="width:100%; display: block" Name="Password" />
             </EditTemplate>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn TItem="User" Property="Email" Title="Email">

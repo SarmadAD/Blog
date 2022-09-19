@@ -1,4 +1,5 @@
-﻿using Blog.Classes.ObjClasses;
+﻿using Blog.Classes.Auth;
+using Blog.Classes.ObjClasses;
 using Blog.Models;
 using Microsoft.EntityFrameworkCore;
 using Radzen.Blazor;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Blog.ViewModel
 {
@@ -15,6 +17,7 @@ namespace Blog.ViewModel
         public IEnumerable<User> UserList { get; set; }
 
         public RadzenDataGrid<User> UserGrid { get; set; }
+        public User UserToInsert { get; set; }
         public UserManagementViewModel(IDbContextFactory<BlogContext> dbContextFactory)
         {
             this.dbContextFactory = dbContextFactory;
@@ -26,7 +29,7 @@ namespace Blog.ViewModel
             {
                 IsLoading = true;
                 using var ctx = dbContextFactory.CreateDbContext();
-                UserList = ctx.Users.Where(x=>x.State==(int)EnumClass.State.Active).ToList();
+                UserList = ctx.Users.Where(x => x.State == (int)EnumClass.State.Active).ToList();
             }
             catch (Exception ex)
             {
@@ -38,22 +41,39 @@ namespace Blog.ViewModel
         }
         public async void SaveUser(User updatedUser)
         {
+            if (updatedUser == UserToInsert)
+            {
+                UserToInsert = null;
+            }
             await UserGrid.UpdateRow(updatedUser);
         }
 
-        public void CreateUser(User createUser) { }
-        public void DeleteUser(User deletedUser)
+        public async Task InsertRow()
+        {
+            UserToInsert = new User();
+            await UserGrid.InsertRow(UserToInsert);
+        }
+
+        public async Task DeleteUser(User deletedUser)
         {
             using var ctx = dbContextFactory.CreateDbContext();
             ctx.Users.FirstOrDefault(x => x.Id == deletedUser.Id).State = (int)EnumClass.State.Deleted;
-            ctx.SaveChanges();
+            ctx.SaveChanges(); 
+            await UserGrid.Reload();
         }
         public async void EditUser(User updatedUser)
         {
             await UserGrid.EditRow(updatedUser);
             //Debug.WriteLine(ConvertObject.ConvertObjectToJson(updatedUser));
         }
-        public void CancelEdit(User cancelUser) => UserGrid.CancelEditRow(cancelUser);
+        public void CancelEdit(User cancelUser)
+        {
+            if (cancelUser == UserToInsert)
+            {
+                UserToInsert = null;
+            }
+            UserGrid.CancelEditRow(cancelUser);
+        }
 
         public void OnEditUser(User updatedUser)
         {
@@ -76,9 +96,26 @@ namespace Blog.ViewModel
             }
         }
 
-        public void OnCreateUser()
+        public void OnCreateUser(User user)
         {
-            //Context.Save usw
+            try
+            {
+                IsLoading = true;
+                using var ctx = dbContextFactory.CreateDbContext();
+                user.Creater = CustomAuthenticationStateProvider.CurrentUser.Login;
+                user.Created = DateTime.Now;
+                user.LastEditor = CustomAuthenticationStateProvider.CurrentUser.Login;
+                user.State = (int)EnumClass.State.Active;
+                ctx.Users.Add(user);
+                ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
     }
 }
