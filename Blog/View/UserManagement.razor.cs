@@ -9,6 +9,8 @@ namespace Blog.View
 
         protected override void OnInitialized()
         {
+            base.OnInitialized();
+
             ViewModel.LoadUser();
         }
     }

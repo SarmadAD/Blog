@@ -56,16 +56,31 @@ namespace Blog.ViewModel
 
         public async Task DeleteUser(User deletedUser)
         {
-            using var ctx = dbContextFactory.CreateDbContext();
-            ctx.Users.FirstOrDefault(x => x.Id == deletedUser.Id).State = (int)EnumClass.State.Deleted;
-            ctx.SaveChanges(); 
-            await UserGrid.Reload();
+            if (deletedUser == UserToInsert)
+            {
+                UserToInsert = null;
+            }
+
+            if (UserList.Contains(deletedUser))
+            {
+                using var ctx = dbContextFactory.CreateDbContext();
+                ctx.Users.FirstOrDefault(x => x.Id == deletedUser.Id).State = (int)EnumClass.State.Deleted;
+                ctx.SaveChanges();
+                await UserGrid.Reload();
+            }
+            else
+            {
+                UserGrid.CancelEditRow(deletedUser);
+            }
+
         }
+
         public async void EditUser(User updatedUser)
         {
             await UserGrid.EditRow(updatedUser);
             //Debug.WriteLine(ConvertObject.ConvertObjectToJson(updatedUser));
         }
+
         public void CancelEdit(User cancelUser)
         {
             if (cancelUser == UserToInsert)
@@ -80,10 +95,10 @@ namespace Blog.ViewModel
             try
             {
                 IsLoading = true;
+                if (updatedUser == UserToInsert)
+                    UserToInsert = null;
                 using var ctx = dbContextFactory.CreateDbContext();
-                var dbUser = ctx.Users.FirstOrDefault(u => u.Id == updatedUser.Id);
-                dbUser.Lastname = updatedUser.Lastname;
-                dbUser.Firstname = updatedUser.Firstname;
+                ctx.Update(updatedUser);
                 ctx.SaveChanges();
             }
             catch (Exception ex)
@@ -95,6 +110,9 @@ namespace Blog.ViewModel
                 IsLoading = false;
             }
         }
+        /*ToDo:
+         - nach löschen, hinzufügen wird die row erst angezeigt bzw gelöscht wenn man refrehed         
+         */
 
         public void OnCreateUser(User user)
         {
